@@ -1,35 +1,3 @@
-// const { Conflict } = require("http-errors");
-// const { User } = require("../models");
-// const jwt = require("jsonwebtoken");
-// /**
-//  * Create new user
-//  * @returns Object of user data
-//  */
-// const register = async ({ name, email, password }) => {
-//   const user = await User.findOne({ email });
-//   if (user) {
-//     throw new Conflict("Email in use");
-//   }
-//   const newUser = await User.create({ name, email, password });
-
-//   return { user: newUser };
-// };
-
-// const login = async ({ _id }, token) => {
-//   return await User.findByIdAndUpdate(_id, { token });
-// };
-
-// const findUserBy = async (data) => {
-//   const user = await User.findOne(data);
-//   return user;
-// };
-
-// const createToken = ({ _id }) => {
-//   const { JWT_SECRET_KEY } = process.env;
-//   const playload = {
-//     id: _id,
-//   };
-
 const { Conflict, Unauthorized } = require("http-errors");
 const { User } = require("../models");
 const bcrypt = require("bcryptjs");
