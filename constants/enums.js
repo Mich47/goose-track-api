@@ -1,3 +1,3 @@
-const ENUM_EXAMPLE = {};
+const ENUM_PRIORITY = ['Low', 'Medium', 'High'];
 
-module.exports = { ENUM_EXAMPLE };
+module.exports = ENUM_PRIORITY;
