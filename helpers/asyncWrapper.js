@@ -1,7 +1,11 @@
-const asyncWrapper = (controller) => {
-  return (req, res, next) => {
-    controller(req, res).catch(next);
+const asyncWrapper = (ctrl) => {
+  return async (req, res, next) => {
+    try {
+      await ctrl(req, res, next);
+    } catch (error) {
+      next(error);
+    }
   };
 };
 
-module.exports = asyncWrapper;
+module.exports = { asyncWrapper };

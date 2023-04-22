@@ -6,6 +6,7 @@ require("dotenv").config();
 const { connectToMongoDB } = require("./db");
 
 const authRouter = require("./routes/api/auth");
+const userRouter = require("./routes/api/user");
 
 const app = express();
 
@@ -17,7 +18,11 @@ app.use(express.json());
 
 connectToMongoDB();
 
-app.use("/api/users", authRouter);
+// app.use("/api/users", authRouter);
+
+app.use("/api/auth", authRouter);
+app.use("/api/user", userRouter);
+// app.use("/user", userRouter);
 
 // app.use(express.static("public"));
 
