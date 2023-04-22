@@ -7,6 +7,7 @@ const { joiSchema } = require("../../models/userModel");
 
 router.get("/current", auth, asyncWrapper(ctrl.getCurrent));
 router.post("/logout", auth, asyncWrapper(ctrl.logout));
-router.patch("/info", auth, validation(joiSchema), asyncWrapper(ctrl.update));
+router.patch("/info", auth, asyncWrapper(ctrl.update));
+// router.patch("/info", auth, validation(joiSchema), asyncWrapper(ctrl.update));
 
 module.exports = router;

@@ -9,6 +9,8 @@ const update = async (req, res) => {
   }
 
   await updateUser(_id, updateParam);
+
+  // Тут потрібно ще подумати яка має бути відповідь
   res.json({
     status: "success",
     message: "User updated",
