@@ -8,9 +8,7 @@
 // module.exports = { checkAuthData };
 const { User } = require("../models");
 const { Unauthorized } = require("http-errors");
-const jwt = require("jsonwebtoken");
-
-const { JWT_SECRET } = process.env;
+const jwtToken = require("../helpers/jwtToken");
 
 const auth = async (req, res, next) => {
   const { authorization = "" } = req.headers;
@@ -20,12 +18,16 @@ const auth = async (req, res, next) => {
     if (bearer !== "Bearer") {
       throw new Unauthorized("Not authorized");
     }
-    const { id } = jwt.verify(token, JWT_SECRET);
+    const { id } = jwtToken.jwtTokenVerify(token);
+
     const user = await User.findById(id);
+
     if (!user || !user.token) {
       throw new Unauthorized("Not authorized");
     }
+
     req.user = user;
+
     next();
   } catch (error) {
     if (error.message === "Invalid signature") {

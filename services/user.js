@@ -1,8 +1,8 @@
 const { User } = require("../models");
 const { NotFoundError } = require("http-errors");
 
-const logoutUser = async (id, token) => {
-  return await User.findByIdAndUpdate(id, token);
+const logoutUser = async (id) => {
+  return await User.findByIdAndUpdate(id, { token: null });
 };
 
 const updateUser = async (id, body) => {

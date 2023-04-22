@@ -1,6 +1,6 @@
 const { updateUser } = require("../../services/user");
 const update = async (req, res) => {
-  const { id } = req.user;
+  const { _id } = req.user;
   const bodyParam = req.body;
   let updateParam = { ...bodyParam };
   if (req.file) {
@@ -8,7 +8,7 @@ const update = async (req, res) => {
     updateParam = { avatarURL, ...bodyParam };
   }
 
-  await updateUser(id, updateParam);
+  await updateUser(_id, updateParam);
   res.json({
     status: "success",
     message: "User updated",

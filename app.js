@@ -20,8 +20,8 @@ connectToMongoDB();
 
 // app.use("/api/users", authRouter);
 
-app.use("/auth", authRouter);
-app.use("/user", userRouter);
+app.use("/api/auth", authRouter);
+app.use("/api/user", userRouter);
 // app.use("/user", userRouter);
 
 // app.use(express.static("public"));

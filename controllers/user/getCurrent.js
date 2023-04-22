@@ -1,14 +1,14 @@
 const getCurrent = async (req, res) => {
-  const { id, name, email, phone, avatarURL, birthday, telergam } = req.user;
+  const { name, email, phone, avatarURL, birthday, telegram, token } = req.user;
   res.status(200).json({
+    token,
     user: {
-      id,
       name,
       email,
       phone,
       avatarURL,
       birthday,
-      telergam,
+      telegram,
     },
   });
 };

@@ -1,10 +1,7 @@
 const { Conflict, Unauthorized } = require("http-errors");
 const { User } = require("../models");
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const { nanoid } = require("nanoid");
-
-const { JWT_SECRET } = process.env;
+const jwtToken = require("../helpers/jwtToken");
 
 const registerUser = async (name, email, password) => {
   const user = await User.findOne({ email });
@@ -12,34 +9,31 @@ const registerUser = async (name, email, password) => {
     throw new Conflict("Email in use");
   }
 
-  const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
-  const verificationToken = nanoid();
-
   const result = await User.create({
     name,
     email,
-    password: hashPassword,
-    verificationToken,
+    password,
+    // verificationToken, ???
   });
 
-  return result;
+  const { phone, avatarURL, telegram, birthday, token } = result;
+
+  return { token, user: { email, name, phone, avatarURL, telegram, birthday } };
 };
+
 const loginUser = async (email, password) => {
   const user = await User.findOne({ email });
   if (!user || !bcrypt.compareSync(password, user.password)) {
     throw new Unauthorized("Email or password is wrong");
   }
 
-  const payload = {
-    id: user._id,
-  };
+  const token = jwtToken.jwtTokenSign(user._id);
 
-  const { email: userEmail } = user;
-  const userObj = { email: userEmail };
-  const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "1h" });
   await User.findByIdAndUpdate(user._id, { token });
 
-  return { token, user: userObj };
+  const { name, phone, avatarURL, telegram, birthday } = user;
+
+  return { token, user: { email, name, phone, avatarURL, telegram, birthday } };
 };
 
 module.exports = { registerUser, loginUser };
