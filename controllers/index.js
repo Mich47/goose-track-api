@@ -1,5 +1,4 @@
-const authCtrl = require("./authController");
+const auth = require("./auth");
+const user = require("./user");
 
-module.exports = {
-  authCtrl,
-};
+module.exports = { auth, user };
