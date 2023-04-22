@@ -85,4 +85,16 @@ const joiSchema = Joi.object({
   token: Joi.string().allow(null),
 });
 
-module.exports = { User, joiSchema };
+const joiUpdateSchema = Joi.object({
+  name: Joi.string().allow(null),
+  password: Joi.string().allow(null),
+  email: Joi.string().email().allow(null),
+  phone: Joi.string().allow(null),
+  avatarURL: Joi.string().allow(null),
+  telegram: Joi.string().allow(null),
+  birthday: Joi.string().allow(null),
+  token: Joi.string().allow(null),
+});
+
+
+module.exports = { User, joiSchema, joiUpdateSchema };

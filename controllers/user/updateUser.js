@@ -1,20 +1,15 @@
 const { updateUser } = require("../../services/user");
+
 const update = async (req, res) => {
-  const { _id } = req.user;
-  const bodyParam = req.body;
-  let updateParam = { ...bodyParam };
-  if (req.file) {
-    const { path: avatarURL } = req.file;
-    updateParam = { avatarURL, ...bodyParam };
-  }
+  const userId = req.user.id;
+  const updateFields = req.body;
 
-  await updateUser(_id, updateParam);
+  const updatedUser = await updateUser(userId, updateFields);
 
-  // Тут потрібно ще подумати яка має бути відповідь
-  res.json({
+  res.status(200).json({
     status: "success",
     message: "User updated",
-    user: updateParam,
+    user: updatedUser,
   });
 };
 
