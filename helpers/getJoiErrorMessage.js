@@ -31,7 +31,16 @@ exports.getJoiErrorMessage = (error) => {
         message =
           "A password must contain minimum six characters, at least one letter and one number";
         break;
+
+      case "telegram":
+        message =
+          "Telegram username must start with @ and contain at least 5 characters, only lowercase letters, digits, and underscores";
+        break;
     }
+  }
+
+  if (type === "date.format") {
+    message = "Birthday must be in ISO 8601 date format, YYYY-MM-DD";
   }
 
   return message;

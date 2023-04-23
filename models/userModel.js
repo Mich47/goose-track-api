@@ -1,5 +1,4 @@
 const { Schema, model } = require("mongoose");
-const Joi = require("joi");
 const bcrypt = require("bcrypt");
 const jwtToken = require("../helpers/jwtToken");
 
@@ -70,19 +69,4 @@ userModel.methods.comparePassword = (myPlaintextPassword, hash) =>
 
 const User = model("user", userModel);
 
-const joiSchema = Joi.object({
-  name: Joi.string(),
-  password: Joi.string().required().messages({
-    "any.required": "Set password for user",
-  }),
-  email: Joi.string().email().required().messages({
-    "any.required": "Email is required",
-  }),
-  phone: Joi.string().allow(null),
-  avatarURL: Joi.string().allow(null),
-  telegram: Joi.string().allow(null),
-  birthday: Joi.string().allow(null),
-  token: Joi.string().allow(null),
-});
-
-module.exports = { User, joiSchema };
+module.exports = { User };
