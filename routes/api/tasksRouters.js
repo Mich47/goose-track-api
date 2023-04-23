@@ -1,30 +1,30 @@
-const { Router } = require('express');
+const { Router } = require("express");
 const {
   getTasksMonthController,
   addTaskController,
   updateTaskController,
   deleteTaskController,
-} = require('../../controllers/taskControllers');
-const auth = require('../../middlewares/auth');
+} = require("../../controllers/taskControllers");
+const { checkAuth } = require("../../middlewares");
 const {
   checkBody,
   checkData,
   checkTaskId,
-} = require('../../middlewares/taskMiddlewares');
+} = require("../../middlewares/taskMiddlewares");
 
 const router = Router();
 
-router.use(auth);
+router.use(checkAuth);
 
 router
-  .route('/')
+  .route("/")
   .get(getTasksMonthController)
   .post(checkBody, checkData, addTaskController);
 
-router.use('/:id', checkTaskId);
+router.use("/:id", checkTaskId);
 
 router
-  .route('/:id')
+  .route("/:id")
   .patch(checkBody, updateTaskController)
   .delete(deleteTaskController);
 
