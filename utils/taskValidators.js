@@ -9,3 +9,14 @@ exports.taskValidator = (data) =>
       priority: Joi.string(),
     })
     .validate(data);
+
+exports.dateValidator = (data) => {
+  const { date } = data;
+  if (date) {
+    return Joi.object()
+      .keys({
+        date: Joi.date(),
+      })
+      .validate(data);
+  }
+};
