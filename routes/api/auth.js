@@ -1,12 +1,13 @@
 const express = require("express");
-const { auth: ctrl } = require("../../controllers");
-
 const router = express.Router();
-const { validation } = require("../../middlewares");
+const { auth: ctrl } = require("../../controllers");
 const { asyncWrapper } = require("../../helpers/asyncWrapper");
-const { joiSchema } = require("../../models/userModel");
+const {
+  checkRegisterData,
+  checkLoginData,
+} = require("../../utils/authValidators");
 
-router.post("/register", asyncWrapper(ctrl.register));
-router.post("/login", validation(joiSchema), asyncWrapper(ctrl.login));
+router.post("/register", checkRegisterData, asyncWrapper(ctrl.register));
+router.post("/login", checkLoginData, asyncWrapper(ctrl.login));
 
 module.exports = router;
