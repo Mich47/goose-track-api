@@ -6,10 +6,15 @@ const logoutUser = async (id) => {
 };
 
 const updateUser = async (id, body) => {
-  const user = await User.findByIdAndUpdate(id, body, { new: true });
+  const user = await User.findByIdAndUpdate(id, body, { new: true }).select(
+    "-password -_id -token"
+  );
+
   if (!user) {
-    throw new NotFoundError(`Not found contact id: ${id}`);
+    throw new NotFoundError("Not found");
   }
+
+  return user;
 };
 module.exports = {
   logoutUser,
