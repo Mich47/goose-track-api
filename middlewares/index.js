@@ -1,4 +1,4 @@
-const checkAuth = require("./authMiddleware");
+const checkAuth = require("./authMiddlewares");
 const validation = require("./validation");
 
 module.exports = {
