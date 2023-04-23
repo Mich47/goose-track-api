@@ -5,7 +5,7 @@ const { User } = require("../models");
 const { Unauthorized } = require("http-errors");
 const jwtToken = require("../helpers/jwtToken");
 
-const auth = async (req, res, next) => {
+const checkAuth = async (req, res, next) => {
   const { authorization = "" } = req.headers;
   const [bearer, token] = authorization.split(" ");
 
@@ -46,4 +46,4 @@ const auth = async (req, res, next) => {
   }
 };
 
-module.exports = auth;
+module.exports = checkAuth;
