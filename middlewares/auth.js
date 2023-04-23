@@ -1,11 +1,6 @@
-// const { AppError } = require("../helpers");
-
-// const checkAuthData = (req, res, next) => {
-//   next();
-//   //   next(new AppError(400, "message"));
-// };
-
-// module.exports = { checkAuthData };
+const {
+  Types: { ObjectId },
+} = require("mongoose");
 const { User } = require("../models");
 const { Unauthorized } = require("http-errors");
 const jwtToken = require("../helpers/jwtToken");
@@ -15,18 +10,32 @@ const auth = async (req, res, next) => {
   const [bearer, token] = authorization.split(" ");
 
   try {
-    if (bearer !== "Bearer") {
+    if (bearer !== "Bearer" || !token) {
       throw new Unauthorized("Not authorized");
     }
-    const { id } = jwtToken.jwtTokenVerify(token);
 
-    const user = await User.findById(id);
+    // Витягуємо id з токена
+    let id = null;
+    try {
+      id = jwtToken.jwtTokenVerify(token).id;
+    } catch (error) {
+      throw new Unauthorized("Not authorized");
+    }
 
-    if (!user || !user.token) {
+    // Перевіряємо чи id є валідним mongoose ObjectId
+    const isValidId = ObjectId.isValid(id);
+    if (!isValidId) {
+      throw new Unauthorized("Not authorized");
+    }
+
+    const user = await User.findById(id).select("-password");
+
+    if (!user || !user.token || user.token !== token) {
       throw new Unauthorized("Not authorized");
     }
 
     req.user = user;
+    console.log("user ", user);
 
     next();
   } catch (error) {
