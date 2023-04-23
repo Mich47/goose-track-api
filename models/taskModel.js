@@ -49,7 +49,8 @@ exports.getTasksMonth = async (owner, body) => {
 exports.addTask = async (owner, body) => {
   try {
     body.owner = owner;
-    const date = new Date();
+    const date = body.date ? body.date : new Date();
+
     body.createDay = date.getDate();
     body.createMonth = date.getMonth();
     body.createYear = date.getFullYear();

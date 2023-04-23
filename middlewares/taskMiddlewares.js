@@ -1,6 +1,6 @@
 const { Types } = require('mongoose');
 const { getById } = require('../models/taskModel');
-const { taskValidator } = require('../utils/taskValidators');
+const { taskValidator, dateValidator } = require('../utils/taskValidators');
 
 exports.checkTaskId = async (req, res, next) => {
   const {
@@ -37,6 +37,11 @@ exports.checkData = async (req, res, next) => {
     res
       .status(400)
       .json({ message: `Do not valid field ${error.details[0].context.key}` });
+  }
+
+  const { error: errorDate } = dateValidator(req.body);
+  if (errorDate) {
+    res.status(400).json({ message: `Do not valid date of task` });
   }
 
   next();

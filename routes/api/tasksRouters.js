@@ -5,6 +5,7 @@ const {
   updateTaskController,
   deleteTaskController,
 } = require('../../controllers/taskControllers');
+const auth = require('../../middlewares/auth');
 const {
   checkBody,
   checkData,
@@ -13,8 +14,7 @@ const {
 
 const router = Router();
 
-// треба імпортувати прошарок protect для залогінених юзерів
-// router.use(protect);
+router.use(auth);
 
 router
   .route('/')
