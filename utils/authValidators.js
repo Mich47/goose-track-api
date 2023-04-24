@@ -4,7 +4,7 @@ const { getJoiErrorMessage, AppError } = require("../helpers");
 
 exports.checkRegisterData = (req, _, next) => {
   const schema = Joi.object({
-    name: Joi.string().regex(joiRegex.NAME_REGEX).min(3).max(120).required(),
+    name: Joi.string().regex(joiRegex.NAME_REGEX).min(3).max(16).required(),
     password: Joi.string().regex(joiRegex.PASSWORD_REGEX).required(),
     email: Joi.string()
       .email({ tlds: { allow: false } })
