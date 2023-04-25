@@ -13,7 +13,6 @@ const registerUser = async (name, email, password) => {
     name,
     email,
     password,
-    // verificationToken, ???
   });
 
   const { phone, avatarURL, telegram, birthday, token } = result;

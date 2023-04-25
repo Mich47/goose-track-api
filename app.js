@@ -45,11 +45,10 @@ const swaggerOptions = {
       },
     ],
   },
-  servers: ['https://goose-track-api-3uhn.onrender.com'],
-  apis: ['app.js', 'routes/api/auth.js', 'routes/api/user.js'],
+  apis: ['./docs/*.yaml'],
 };
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
