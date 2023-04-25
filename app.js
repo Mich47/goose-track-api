@@ -45,8 +45,6 @@ const swaggerOptions = {
       },
     ],
   },
-  // servers: ["https://goose-track-api2.onrender.com"],
-  // servers: ["http://localhost:4000/"],
   apis: ['./docs/*.yaml'],
 };
 const swaggerDocs = swaggerJSDoc(swaggerOptions);
@@ -55,8 +53,6 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/tasks", tasksRouter);
-
-// app.use(express.static("public"));
 
 app.use((_, res) => {
   res.status(404).json({ message: 'Not found' });
