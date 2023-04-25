@@ -8,6 +8,8 @@ const { connectToMongoDB } = require('./db');
 const authRouter = require("./routes/api/auth");
 const userRouter = require("./routes/api/user");
 const tasksRouter = require("./routes/api/tasksRouters");
+const swaggerJSDoc = require('swagger-jsdoc');
+const swaggerUi = require("swagger-ui-express");
 
 const app = express();
 dotenv.config({ path: './.env' });
@@ -46,7 +48,7 @@ const swaggerOptions = {
   servers: ["https://goose-track-api2.onrender.com"],
   apis: ["app.js", "routes/api/auth.js", "routes/api/user.js"],
 };
-const swaggerDocs = swaggerJsDoc(swaggerOptions);
+const swaggerDocs = swaggerJSDoc(swaggerOptions);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use("/api/auth", authRouter);
