@@ -1,20 +1,18 @@
-const express = require("express");
-const swaggerJsDoc = require("swagger-jsdoc");
-const swaggerUi = require("swagger-ui-express");
-const logger = require("morgan");
-const cors = require("cors");
-const dotenv = require("dotenv");
+const express = require('express');
+const logger = require('morgan');
+const cors = require('cors');
+const dotenv = require('dotenv');
 
-const { connectToMongoDB } = require("./db");
+const { connectToMongoDB } = require('./db');
 
 const authRouter = require("./routes/api/auth");
 const userRouter = require("./routes/api/user");
 const tasksRouter = require("./routes/api/tasksRouters");
 
 const app = express();
-dotenv.config({ path: "./.env" });
+dotenv.config({ path: './.env' });
 
-const formatsLogger = app.get("env") === "development" ? "dev" : "short";
+const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
 
 connectToMongoDB();
 
@@ -55,8 +53,10 @@ app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/tasks", tasksRouter);
 
+// app.use(express.static("public"));
+
 app.use((_, res) => {
-  res.status(404).json({ message: "Not found" });
+  res.status(404).json({ message: 'Not found' });
 });
 
 app.use((err, _, res, __) => {
