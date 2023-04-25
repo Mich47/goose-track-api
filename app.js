@@ -45,7 +45,7 @@ const swaggerOptions = {
       },
     ],
   },
-  servers: ["http://localhost:4000"],
+  servers: ["https://goose-track-api-3uhn.onrender.com"],
   apis: ["app.js", "routes/api/auth.js", "routes/api/user.js"],
 };
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
@@ -53,7 +53,6 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use("/api/tasks", tasksRouter);
 
 app.use((_, res) => {
