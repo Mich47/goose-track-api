@@ -1,9 +1,10 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const { checkAuth } = require("../../middlewares");
-const { asyncWrapper } = require("../../helpers/asyncWrapper");
-const { user: ctrl } = require("../../controllers");
-const { checkUpdateData } = require("../../utils/userValidators");
+const { checkAuth } = require('../../middlewares/authMiddlewares');
+const { asyncWrapper } = require('../../helpers/asyncWrapper');
+const { user: ctrl } = require('../../controllers');
+const { checkUpdateData } = require('../../utils/userValidators');
+const uploadCloud = require('../../middlewares/userMiddlewares');
 
 router.use(checkAuth);
 /**
@@ -58,7 +59,7 @@ router.use(checkAuth);
  *                   type: string
  */
 
-router.get("/current", asyncWrapper(ctrl.getCurrent));
+router.get('/current', asyncWrapper(ctrl.getCurrent));
 /**
  * @swagger
  * /api/user/logout:
@@ -86,7 +87,7 @@ router.get("/current", asyncWrapper(ctrl.getCurrent));
  *       - bearerAuth: []
  */
 
-router.post("/logout", asyncWrapper(ctrl.logout));
+router.post('/logout', asyncWrapper(ctrl.logout));
 
 /**
  * @swagger
@@ -145,6 +146,11 @@ router.post("/logout", asyncWrapper(ctrl.logout));
  *         description: Internal server error
  */
 
-router.patch("/info", checkUpdateData, asyncWrapper(ctrl.update));
+router.patch(
+  '/info',
+  checkUpdateData,
+  uploadCloud.single('avatar'),
+  asyncWrapper(ctrl.update)
+);
 
 module.exports = router;
