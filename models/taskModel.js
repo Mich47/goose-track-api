@@ -12,10 +12,7 @@ const taskSchema = new Schema(
       type: String,
       required: (true, 'Set start time of task.'),
     },
-    end: {
-      type: String,
-      required: (true, 'Set finish time of task.'),
-    },
+    end: String,
     priority: {
       type: String,
       enum: EMUN_PRIORITY,

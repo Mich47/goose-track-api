@@ -1,6 +1,6 @@
-const Joi = require("joi");
-const { joiRegex } = require("../constants");
-const { getJoiErrorMessage, AppError } = require("../helpers");
+const Joi = require('joi');
+const { joiRegex } = require('../constants');
+const { getJoiErrorMessage, AppError } = require('../helpers');
 
 exports.checkUpdateData = (req, _, next) => {
   const schema = Joi.object({
@@ -8,9 +8,9 @@ exports.checkUpdateData = (req, _, next) => {
     email: Joi.string()
       .email({ tlds: { allow: false } })
       .required(),
-    phone: Joi.string().regex(joiRegex.PHONE_REGEX).allow(null, ""),
-    telegram: Joi.string().regex(joiRegex.TELEGRAM_REGEX).allow(null, ""),
-    birthday: Joi.date().iso().min("1914-01-01").max(Date.now()),
+    phone: Joi.string().regex(joiRegex.PHONE_REGEX).allow(null, ''),
+    telegram: Joi.string().regex(joiRegex.TELEGRAM_REGEX).allow(null, ''),
+    birthday: Joi.date().iso().min('1914-01-01').max(Date.now()),
   });
 
   const { error } = schema.validate(req.body);

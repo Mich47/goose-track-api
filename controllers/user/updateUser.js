@@ -1,15 +1,15 @@
-const { updateUser } = require("../../services/user");
+const { updateUser } = require('../../services/user');
+
 const update = async (req, res) => {
   const { _id, token } = req.user;
-  const bodyParam = req.body;
-  let updateParam = { ...bodyParam };
+  const { body } = req;
 
   if (req.file) {
     const { path: avatarURL } = req.file;
-    updateParam = { avatarURL, ...bodyParam };
+    body.avatarURL = avatarURL;
   }
 
-  const user = await updateUser(_id, updateParam);
+  const user = await updateUser(_id, body);
 
   res.status(200).json({
     token,
