@@ -38,10 +38,19 @@ const Task = model('task', taskSchema);
 
 exports.getTasksMonth = async (owner, body) => {
   try {
-    const { createMonth, createYear } = body;
-    const findOptions = { $and: [{ owner }, { createMonth }, { createYear }] };
+    const tasks = [];
 
-    const tasks = await Task.find(findOptions);
+    const { createMonth, createYear } = body;
+    const dayInMonth = new Date(createYear, createMonth, 0).getDate();
+
+    for (let createDay = 0; createDay < dayInMonth; createDay += 1) {
+      const findOptions = {
+        $and: [{ owner }, { createDay }, { createMonth }, { createYear }],
+      };
+      const tasksDay = await Task.find(findOptions);
+      tasks.push(tasksDay);
+    }
+
     return tasks;
   } catch (error) {
     console.log(error);
