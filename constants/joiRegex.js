@@ -1,5 +1,5 @@
 const NAME_REGEX = /^[a-zA-Z .'-]+$/;
-const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{6,64}$/;
 const PHONE_REGEX =
   /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{0,4}[-.\s]?\d{0,9}$/;
 const TELEGRAM_REGEX = /(?: ?^@)[a-z0-9_]{5,32}/;
