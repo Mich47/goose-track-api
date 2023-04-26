@@ -1,0 +1,59 @@
+/api/tasks:
+  post:
+    summary: Create a new task
+    tags:
+      - Tasks
+    description: Creates a new task with the given details. Requires a valid authentication token.
+    parameters:
+      - in: header
+        name: Authorization
+        description: Bearer token
+        required: true
+        schema:
+          type: string
+          example: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIi...
+      - in: body
+        name: task
+        description: Details of the new task to be created
+        required: true
+        schema:
+          type: object
+          properties:
+            title:
+              type: string
+              minLength: 2
+              maxLength: 256
+              example: Finish project report
+              description: The title of the new task
+              required: true
+            start:
+              type: string
+              pattern: "^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$"
+              example: "10:30"
+              description: The start time of the task in format HH:mm
+              required: true
+            end:
+              type: string
+              pattern: "^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$"
+              example: "12:00"
+              description: The end time of the task in format HH:mm
+              required: true
+            priority:
+              type: string
+              enum: ["Low", "Medium", "High"]
+              default: "Low"
+              example: "High"
+              description: The priority of the task
+            date:
+              type: string
+              format: date
+              example: "2023-05-01"
+              description: The date of the task in format YYYY-MM-DD
+              required: false
+    responses:
+      "201":
+        description: The new task has been created successfully
+      "400":
+        description: The request could not be processed because of bad syntax, missing parameters, or an invalid parameter.
+      "401":
+        description: Unauthorized. The authentication token is missing or invalid.

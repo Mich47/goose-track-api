@@ -1,0 +1,28 @@
+/api/tasks/:id:
+  delete:
+    summary: Delete task
+    tags:
+      - Tasks
+    description: Delete task by id. Requires a valid authentication token and task id.
+    parameters:
+      - in: header
+        name: Authorization
+        description: Bearer token
+        required: true
+        schema:
+          type: string
+          example: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIi...
+      - in: path
+        name: id
+        description: ID of the task to get
+        required: true
+        schema:
+          type: string
+          example: "60e9c8d5841b0d0ef484e520"
+    responses:
+      "201":
+        description: Task has been deleted successfully
+      "400":
+        description: The request could not be processed because of bad syntax, missing parameters, or an invalid parameter.
+      "401":
+        description: Unauthorized. The authentication token is missing or invalid.

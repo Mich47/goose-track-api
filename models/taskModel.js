@@ -1,16 +1,16 @@
-const { Schema, model, Types } = require('mongoose');
+const { Schema, model, Types } = require("mongoose");
 
-const { ENUM_PRIORITY, ENUM_STATUS } = require('../constants/enums');
+const { ENUM_PRIORITY, ENUM_STATUS } = require("../constants/enums");
 
 const taskSchema = new Schema(
   {
     title: {
       type: String,
-      required: (true, 'Set title of task.'),
+      required: (true, "Set title of task."),
     },
     start: {
       type: String,
-      required: (true, 'Set start time of task.'),
+      required: (true, "Set start time of task."),
     },
     end: String,
     priority: {
@@ -28,13 +28,13 @@ const taskSchema = new Schema(
     createYear: Number,
     owner: {
       type: Types.ObjectId,
-      ref: 'user',
+      ref: "user",
     },
   },
   { versionKey: false }
 );
 
-const Task = model('task', taskSchema);
+const Task = model("task", taskSchema);
 
 exports.getTasksMonth = async (owner, body) => {
   try {
