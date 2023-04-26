@@ -32,16 +32,13 @@ exports.checkBody = async (req, res, next) => {
 };
 
 exports.checkData = async (req, res, next) => {
-  const { error } = taskValidator(req.body);
+  const { body } = req;
+
+  const { error } = taskValidator(body);
   if (error) {
     res
       .status(400)
       .json({ message: `Do not valid field ${error.details[0].context.key}` });
-  }
-
-  const { error: errorDate } = dateValidator(req.body);
-  if (errorDate) {
-    res.status(400).json({ message: `Do not valid date of task` });
   }
 
   next();

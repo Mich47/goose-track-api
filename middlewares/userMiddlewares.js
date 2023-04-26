@@ -2,6 +2,7 @@ const cloudinary = require('cloudinary').v2;
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const multer = require('multer');
 const AppError = require('../helpers/appError');
+const { checkUpdateData } = require('../utils/userValidators');
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
@@ -24,10 +25,19 @@ const fileFilter = (req, file, cb) => {
     : cb(new AppError(400, 'Downloaded file must be image type'), false);
 };
 
-const uploadCloud = multer({
+exports.uploadCloud = multer({
   storage,
   fileFilter,
   limits: { fileSize: 2 * 1024 * 1024 },
 });
 
-module.exports = uploadCloud;
+exports.checkUpdateMiddleware = (req, res, next) => {
+  const error = checkUpdateData(req.body);
+  if (error) {
+    res
+      .status(400)
+      .json({ message: `Do not valid field ${error.details[0].context.key}` });
+  }
+
+  next();
+};

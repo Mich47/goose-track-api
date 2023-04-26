@@ -1,6 +1,6 @@
 const { Schema, model, Types } = require('mongoose');
 
-const EMUN_PRIORITY = require('../constants/enums');
+const { ENUM_PRIORITY, ENUM_STATUS } = require('../constants/enums');
 
 const taskSchema = new Schema(
   {
@@ -15,8 +15,13 @@ const taskSchema = new Schema(
     end: String,
     priority: {
       type: String,
-      enum: EMUN_PRIORITY,
-      default: EMUN_PRIORITY[0],
+      enum: ENUM_PRIORITY,
+      default: ENUM_PRIORITY[0],
+    },
+    status: {
+      type: String,
+      enum: ENUM_STATUS,
+      default: ENUM_STATUS[0],
     },
     createDay: Number,
     createMonth: Number,
@@ -46,7 +51,7 @@ exports.getTasksMonth = async (owner, body) => {
 exports.addTask = async (owner, body) => {
   try {
     body.owner = owner;
-    const date = body.date ? body.date : new Date();
+    const date = body.date ? new Date(body.date) : new Date();
 
     body.createDay = date.getDate();
     body.createMonth = date.getMonth();
