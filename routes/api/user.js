@@ -3,8 +3,10 @@ const router = express.Router();
 const { checkAuth } = require('../../middlewares/authMiddlewares');
 const { asyncWrapper } = require('../../helpers/asyncWrapper');
 const { user: ctrl } = require('../../controllers');
-const { checkUpdateData } = require('../../utils/userValidators');
-const uploadCloud = require('../../middlewares/userMiddlewares');
+const {
+  uploadCloud,
+  checkUpdateMiddleware,
+} = require('../../middlewares/userMiddlewares');
 
 router.use(checkAuth);
 /**
@@ -148,7 +150,7 @@ router.post('/logout', asyncWrapper(ctrl.logout));
 
 router.patch(
   '/info',
-  checkUpdateData,
+  checkUpdateMiddleware,
   uploadCloud.single('avatar'),
   asyncWrapper(ctrl.update)
 );
