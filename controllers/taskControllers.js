@@ -6,9 +6,9 @@ const {
 } = require('../models/taskModel');
 
 exports.getTasksMonthController = async (req, res) => {
-  const { user: owner, body } = req;
+  const { user: owner, query } = req;
 
-  const tasks = await getTasksMonth(owner, body);
+  const tasks = await getTasksMonth(owner, query);
 
   res.status(200).json(tasks);
 };
