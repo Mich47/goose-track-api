@@ -1,0 +1,66 @@
+/api/tasks/:id:
+  patch:
+    summary: Update task by id
+    tags:
+      - Tasks
+    description: Updates task with the given details. Requires a valid authentication token.
+    parameters:
+      - in: header
+        name: Authorization
+        description: Bearer token
+        required: true
+        schema:
+          type: string
+          example: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIi...
+      - in: path
+        name: id
+        description: ID of the task to get
+        required: true
+        schema:
+          type: string
+          example: "60e9c8d5841b0d0ef484e520"
+      - in: body
+        name: task
+        description: Details of the  task to be changed
+        required: true
+        schema:
+          type: object
+          properties:
+            title:
+              type: string
+              minLength: 2
+              maxLength: 256
+              example: Finish project report
+              description: The title of the new task
+              required: true
+            start:
+              type: string
+              pattern: "^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$"
+              example: "10:30"
+              description: The start time of the task in format HH:mm
+              required: true
+            end:
+              type: string
+              pattern: "^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$"
+              example: "12:00"
+              description: The end time of the task in format HH:mm
+              required: true
+            priority:
+              type: string
+              enum: ["Low", "Medium", "High"]
+              default: "Low"
+              example: "High"
+              description: The priority of the task
+            date:
+              type: string
+              format: date
+              example: "2023-05-01"
+              description: The date of the task in format YYYY-MM-DD
+              required: false
+    responses:
+      "201":
+        description: The task has been updated successfully
+      "400":
+        description: The request could not be processed because of bad syntax, missing parameters, or an invalid parameter.
+      "401":
+        description: Unauthorized. The authentication token is missing or invalid.

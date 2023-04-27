@@ -1,0 +1,33 @@
+/api/tasks:
+  get:
+    summary: Get tasks for one month
+    tags:
+      - Tasks
+    description: Returns information about the tasks for whole month. Requires a valid authentication token.
+    parameters:
+      - in: header
+        name: Authorization
+        description: Bearer token
+        required: true
+        schema:
+          type: string
+          example: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIi...
+      - in: query
+        name: createMonth
+        schema:
+          type: integer
+          example: 05
+        required: true
+        description: The month to get tasks for
+      - in: query
+        name: createYear
+        schema:
+          type: integer
+          example: 2023
+        required: true
+        description: The year to get tasks for
+    responses:
+      "200":
+        description: OK. Returns information about the authenticated user.
+      "401":
+        description: Unauthorized. The authentication token is missing or invalid.
