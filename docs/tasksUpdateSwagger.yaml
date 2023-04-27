@@ -1,4 +1,4 @@
-/api/tasks/:id:
+/api/tasks/{id}:
   patch:
     summary: Update task by id
     tags:
