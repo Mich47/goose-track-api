@@ -36,11 +36,11 @@ const taskSchema = new Schema(
 
 const Task = model('task', taskSchema);
 
-exports.getTasksMonth = async (owner, body) => {
+exports.getTasksMonth = async (owner, params) => {
   try {
     const tasks = [];
 
-    const { createMonth, createYear } = body;
+    const { month: createMonth, year: createYear } = params;
     const dayInMonth = new Date(createYear, createMonth, 0).getDate();
 
     for (let createDay = 0; createDay < dayInMonth; createDay += 1) {
