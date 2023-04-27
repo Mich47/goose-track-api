@@ -1,4 +1,4 @@
-/api/tasks/:id:
+/api/tasks/{id}:
   delete:
     summary: Delete task
     tags:
