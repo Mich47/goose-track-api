@@ -13,14 +13,14 @@
           type: string
           example: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIi...
       - in: query
-        name: createMonth
+        name: month
         schema:
           type: integer
           example: 05
         required: true
         description: The month to get tasks for
       - in: query
-        name: createYear
+        name: year
         schema:
           type: integer
           example: 2023
