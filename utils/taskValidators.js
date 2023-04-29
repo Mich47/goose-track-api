@@ -11,6 +11,7 @@ exports.taskValidator = (data) => {
       end: Joi.string().allow(null, ''),
       priority: Joi.string(),
       date: Joi.date(),
+      status: Joi.string(),
     })
     .validate(data);
 };
