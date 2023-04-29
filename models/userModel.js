@@ -57,9 +57,9 @@ userModel.pre("save", async function (next) {
  * Auto token generating for new user
  */
 userModel.post("validate", function (_, next) {
-  if (this.token) return next();
-
-  this.token = jwtToken.jwtTokenSign(this._id);
+  if (this.isNew) {
+    this.token = jwtToken.jwtTokenSign(this._id);
+  }
 
   next();
 });
