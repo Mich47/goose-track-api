@@ -43,7 +43,7 @@ exports.getTasksMonth = async (owner, params) => {
     const { month: createMonth, year: createYear } = params;
     const dayInMonth = new Date(createYear, createMonth, 0).getDate();
 
-    for (let createDay = 0; createDay < dayInMonth; createDay += 1) {
+    for (let createDay = 1; createDay <= dayInMonth; createDay += 1) {
       const findOptions = {
         $and: [{ owner }, { createDay }, { createMonth }, { createYear }],
       };
