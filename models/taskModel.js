@@ -63,7 +63,7 @@ exports.addTask = async (owner, body) => {
     const date = body.date ? new Date(body.date) : new Date();
 
     body.createDay = date.getDate();
-    body.createMonth = date.getMonth();
+    body.createMonth = date.getMonth() + 1;
     body.createYear = date.getFullYear();
 
     const task = await Task.create(body);
