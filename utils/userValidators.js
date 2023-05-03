@@ -1,9 +1,10 @@
-const Joi = require('joi');
-const { joiRegex } = require('../constants');
+const Joi = require("joi");
+const { joiRegex } = require("../constants");
 // const { getJoiErrorMessage, AppError } = require('../helpers');
 
 exports.checkUpdateData = (body) => {
-  const { name, email, phone, telegram, birthday, status } = body;
+  const { name, email, phone, telegram, birthday } = body;
+
   if (name) {
     const data = { name };
     const { error } = Joi.object()
@@ -32,7 +33,7 @@ exports.checkUpdateData = (body) => {
     const data = { phone };
     const { error } = Joi.object()
       .keys({
-        phone: Joi.string().regex(joiRegex.PHONE_REGEX).allow(null, ''),
+        phone: Joi.string().regex(joiRegex.PHONE_REGEX).allow(null, ""),
       })
       .validate(data);
     if (error) {
@@ -44,7 +45,7 @@ exports.checkUpdateData = (body) => {
     const data = { telegram };
     const { error } = Joi.object()
       .keys({
-        telegram: Joi.string().regex(joiRegex.TELEGRAM_REGEX).allow(null, ''),
+        telegram: Joi.string().regex(joiRegex.TELEGRAM_REGEX).allow(null, ""),
       })
       .validate(data);
     if (error) {
@@ -57,7 +58,7 @@ exports.checkUpdateData = (body) => {
     const data = { date };
     const { error } = Joi.object()
       .keys({
-        date: Joi.date().iso().min('1914-01-01').max(Date.now()),
+        date: Joi.date().iso().min("1914-01-01").max(Date.now()),
       })
       .validate(data);
     if (error) {
@@ -67,23 +68,3 @@ exports.checkUpdateData = (body) => {
 
   return null;
 };
-
-// exports.checkUpdateData_ = (req, _, next) => {
-//   const schema = Joi.object({
-//     name: Joi.string().regex(joiRegex.NAME_REGEX).min(3).max(16).required(),
-//     email: Joi.string()
-//       .email({ tlds: { allow: false } })
-//       .required(),
-//     phone: Joi.string().regex(joiRegex.PHONE_REGEX).allow(null, ''),
-//     telegram: Joi.string().regex(joiRegex.TELEGRAM_REGEX).allow(null, ''),
-//     birthday: Joi.date().iso().min('1914-01-01').max(Date.now()),
-//   });
-
-//   const { error } = schema.validate(req.body);
-
-//   if (!error) return next();
-
-//   const message = getJoiErrorMessage(error);
-
-//   next(new AppError(400, message));
-// };

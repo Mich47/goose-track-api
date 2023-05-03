@@ -3,7 +3,7 @@ const {
   addTask,
   updateTask,
   deleteTask,
-} = require('../models/taskModel');
+} = require("../models/taskModel");
 
 exports.getTasksMonthController = async (req, res) => {
   const { user: owner, query } = req;
@@ -37,5 +37,5 @@ exports.deleteTaskController = async (req, res) => {
 
   await deleteTask(id);
 
-  res.status(200).json({ message: 'Task was deleted.' });
+  res.status(200).json({ message: "Task was deleted." });
 };

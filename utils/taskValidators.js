@@ -1,4 +1,4 @@
-const Joi = require('joi');
+const Joi = require("joi");
 
 exports.taskValidator = (data) => {
   if (data.date) {
@@ -8,7 +8,7 @@ exports.taskValidator = (data) => {
     .keys({
       title: Joi.string().min(2).max(256).required(),
       start: Joi.string().required(),
-      end: Joi.string().allow(null, ''),
+      end: Joi.string().allow(null, ""),
       priority: Joi.string(),
       date: Joi.date(),
       status: Joi.string(),
