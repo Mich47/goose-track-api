@@ -83,7 +83,7 @@
               description: Phone number of the user in the format "+X (XXX) XXX-XXXX"
             telegram:
               type: string
-              pattern: "(?: ?^@)[a-z0-9_]{5,32}"
+              pattern: "(?: ?^@)[a-z0-9_]{5,32}$"
               description: Telegram username of the user starting with "@" and containing 5-32 characters (letters, digits, and underscores)
             birthday:
               type: string
